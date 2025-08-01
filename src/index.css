@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  overflow-y : auto;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: white;      /* Make arrows white */
+  opacity: 1;        /* Fully visible */
+  font-size: 30px;   /* Optional: Make them bigger */
+}
+
