@@ -4,11 +4,13 @@ function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
-
+  const isMovieDetails = location.pathname.includes("/movies/");
+  const isTransparent = isHome || isMovieDetails;
+  
   return (
    <div
   className={`${
-    isHome ? "absolute top-0 left-0 bg-[#131313]/50" : "bg-[#0f0f0f]"
+    isTransparent ? "absolute top-0 left-0 bg-[#131313]/50" : "bg-[#0f0f0f]"
   } w-full p-4 z-50`}
 >
   <div className="max-w-[1280px] mx-auto flex justify-between items-center px-4">

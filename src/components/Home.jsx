@@ -60,9 +60,12 @@ function Home() {
   },[])
 
   function renderLoadingView() {
-    <div className='flex flex-col justify-center items-center h-[200px]'>
+    return(
+      <div className='flex flex-col justify-center items-center h-[200px]'>
         <BeatLoader color="#D81F26" size={15}/>
-    </div>
+      </div>
+    )
+    
   }
 
   const settings = {

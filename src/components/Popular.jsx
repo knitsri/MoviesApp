@@ -4,10 +4,21 @@ import { useState,useEffect } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import MovieItem from './MovieItem'
+import { BeatLoader } from 'react-spinners'
 
 function Popular() {
   const jwtToken = Cookies.get('jwt_token')
   const [popularData,setPopularData] = useState([])
+  const [isLoading,setIsLoading] = useState(true)
+
+  function renderLoadingView() {
+    return(
+      <div className='flex flex-col justify-center items-center min-h-screen bg-[#0f0f0f]'>
+        <BeatLoader color="#D81F26" size={15}/>
+      </div>
+    )
+  }
+
   useEffect(() => {
     async function getPopularData() {
       const options = {
@@ -23,18 +34,24 @@ function Popular() {
         id : i.id
       }))
       setPopularData(formattedData)
+      setIsLoading(false)
     }
     getPopularData()
   },[])
-  return (
-    <div className='bg-[#0f0f0f]  min-h-screen pb-[30px]'>
-      <Header/>
-      <div className='grid grid-cols-4 gap-4 p-[40px]'>
-        {popularData.map(i => <MovieItem img={i.backDropPath} uniqueId={i.id}/>)}
-      </div>
-      <Footer/>
+  return isLoading ? (
+  renderLoadingView()
+) : (
+  <div className='bg-[#0f0f0f] min-h-screen pb-[30px]'>
+    <Header />
+    <div className='grid grid-cols-4 gap-4 p-[40px]'>
+      {popularData.map(i => (
+        <MovieItem key={i.id} img={i.backDropPath} uniqueId={i.id} />
+      ))}
     </div>
-  )
+    <Footer />
+  </div>
+);
+
 }
 
 export default Popular
