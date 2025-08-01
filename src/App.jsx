@@ -1,5 +1,6 @@
 
-import './App.css'
+
+
 import Login from './components/Login'
 import Home from './components/Home'
 import Popular from './components/Popular'
