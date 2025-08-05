@@ -2,12 +2,22 @@ import React from 'react'
 import { useState } from 'react'
 import Cookies from 'js-cookie'
 import {useNavigate} from "react-router"
+import { useContext } from 'react'
+import { AuthContext } from '../Context'
+import { Navigate } from 'react-router'
+
+
 function Login() {
-  const [username,setUsername] = useState("")
-  const [password,setPassword] = useState("")
+
+  const {username,setUsername,password,setPassword} = useContext(AuthContext)
   const [showSubmitError, setShowSubmitError] = useState(false)
   const [errorMsg, setErrorMsg] = useState("")
   const navigate = useNavigate()
+
+  const jwtToken = Cookies.get('jwt_token')
+  if(jwtToken !== undefined){
+         return <Navigate to="/"/>
+  }
 
   function onSubmitSuccess(jwtToken) {
     Cookies.set("jwt_token",jwtToken,{expires:30})
@@ -35,6 +45,8 @@ function Login() {
       onSubmitFailure(data.error_msg)
     }
   }
+
+
   function onChangeUsername(event) {
     setUsername(event.target.value)
   }
